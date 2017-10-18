@@ -27,7 +27,7 @@ Generic build process looks like this (with cmake):
 	cd i2pd/
 	make
 
-After successfull build i2pd could be installed with:
+After successful build i2pd could be installed with:
 
 	make install
 
@@ -76,9 +76,9 @@ If you need UPnP support miniupnpc development library should be installed (don'
 
 You may also build deb-package with the following:
 
-	sudo apt-get install fakeroot devscripts
+	sudo apt-get install fakeroot devscripts dh-apparmor
 	cd i2pd
-	debuild --no-tgz-check
+	debuild --no-tgz-check -b
 
 Fedora/Centos
 -------------

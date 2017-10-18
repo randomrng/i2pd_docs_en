@@ -1,5 +1,5 @@
 
-# Hacking on I2PD
+# Hacking on i2pd
 
 This document contains notes compiled from hacking on i2pd
 
@@ -8,17 +8,17 @@ This document contains notes compiled from hacking on i2pd
 This guide assumes:
 
 * a decent understanding of c++ 
-* basic understanding of how i2p works at i2np level and up
+* basic understanding of how I2P works at i2np level and up
 
 ## general structure
 
 Notes on multithreading
 
-* every compontent runs in its own thread 
+* every component runs in its own thread
 
 * each component (usually) has a public function `GetService()` which can be used to obtain the `boost::asio::io_service` that it uses.
 
-* when talking between components/threads, **always** use `GetService().post()` and be mindfull of stack allocated memory.
+* when talking between components/threads, **always** use `GetService().post()` and be mindful of stack allocated memory.
 
 
 ### NetDb
@@ -38,7 +38,7 @@ For Pending RouterInfo/LeaseSet lookup and store requests
 
 #### ClientContext.h
 
-`i2p::client::ClientContext` spawns all destinations used by the i2p router including the shared local destination.
+`i2p::client::ClientContext` spawns all destinations used by the I2P router including the shared local destination.
 
 global singleton at `i2p::client::context` as of 2.10.1
 
@@ -48,7 +48,7 @@ global singleton at `i2p::client::context` as of 2.10.1
 
 File: Daemon.cpp
 
-`i2p::util::Daemon_Singleton_Private` subclasses implement the daemon start-up and tear-down, creates Http Webui and i2p control server.
+`i2p::util::Daemon_Singleton_Private` subclasses implement the daemon start-up and tear-down, creates Http Webui and I2P control server.
 
 
 
@@ -83,7 +83,7 @@ If you use streaming please consider running all code within the destination thr
 
 #### Garlic.h
 
-Provides Inter-Destination routing primatives.
+Provides Inter-Destination routing primitives.
 
 ##### i2p::garlic::GarlicDestination
 

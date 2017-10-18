@@ -28,7 +28,7 @@ i2pd.conf:
     [sam]
     enabled = true
 
-See also commented config with examples of all options in ``docs/i2pd.conf``.
+See also commented config with examples of all options in ``contrib/i2pd.conf``.
 
 Options specified on the command line take precedence over those in the config file.
 If you are upgrading your very old router (< 2.3.0) see also [this](config_opts_after_2.3.0.md) page.
@@ -46,20 +46,30 @@ Option                                 | Description
 conf                                   | Config file (default: ~/.i2pd/i2pd.conf or /var/lib/i2pd/i2pd.conf). This parameter will be silently ignored if the specified config file does not exist.
 tunconf                                | Tunnels config file (default: ~/.i2pd/tunnels.conf or /var/lib/i2pd/tunnels.conf)
 pidfile                                | Where to write pidfile (dont write by default)
-log                                    | Logs destination: stdout, file (stdout if not set, file - otherwise, for compatibility)
+log                                    | Logs destination: stdout, file, syslog (stdout if not set, file - otherwise, for compatibility)
 logfile                                | Path to logfile (default - autodetect)
 loglevel                               | Log messages above this level (debug, info, warn, error)
+logclftime                             | Write full CLF-formatted date and time to log (default: write only time)
 datadir                                | Path to storage of i2pd data (RI, keys, peer profiles, ...)
 host                                   | Router external IP for incoming connections
 port                                   | Port to listen for incoming connections (default: auto)
 daemon                                 | Router will go to background after start
 service                                | Router will use system folders like '/var/lib/i2pd'
-ipv6                                   | Enable communication through ipv6. false by default
-notransit                              | Router will not accept transit tunnels at startup. false by default
+ifname                                 | Network interface to bind to
+ifname4                                | Network interface to bind to for IPv4
+ifname6                                | Network interface to bind to for IPv6
+nat                                    | If true, assume we are behind NAT. true by default
+ipv4                                   | Enable communication through IPv4. true by default
+ipv6                                   | Enable communication through IPv6. false by default
+notransit                              | Router will not accept transit tunnels, disabling transit traffic completely. false by default
 floodfill                              | Router will be floodfill. false by default
 bandwidth                              | Bandwidth limit: integer in KBps or letters: L (32), O (256), P (2048), X (>9000)
+share                                  | Max % of bandwidth limit for transit. 0-100. 100 by default
 family                                 | Name of a family, router belongs to
 netid                                  | Network ID, router belongs to. Main I2P is 2.
+ssu                                    | Enable SSU transport protocol (use UDP). true by default
+ntcp                                   | Enable NTCP transport protocol (use TCP). true by default
+ntcpproxy                              | Specify proxy server for NTCP. Should be http://address:port or socks://address:port 
 
 ### Windows-specific options
 
@@ -88,7 +98,8 @@ Option                                 | Description
 -------------------------------------- | --------------------------------------
 httpproxy.enabled                      | If HTTP proxy is enabled. true by default  
 httpproxy.address                      | The address to listen on (HTTP Proxy)  
-httpproxy.port                         | The port to listen on (HTTP Proxy) 4444 by default  
+httpproxy.port                         | The port to listen on (HTTP Proxy) 4444 by default 
+httpproxy.addresshelper                | Enable of disable address helper (jump). true by default  
 httpproxy.keys                         | optional keys file for HTTP proxy local destination  
 httpproxy.signaturetype                | signature type for new keys if keys file is set. 7 by default
 httpproxy.inbound.length               | Inbound tunnels length if keys is set. 3 by default  
@@ -109,7 +120,7 @@ socksproxy.inbound.length              | Inbound tunnels length if keys is set. 
 socksproxy.inbound.quantity            | Inbound tunnels quantity if keys is set. 5 by default  
 socksproxy.outbound.length             | Outbound tunnels length if keys is set. 3 by default  
 socksproxy.outbound.quantity           | Outbound tunnels quantity if keys is set. 5 by default  
-socksproxy.outproxy                    | Address of outproxy. requests outside i2p will go there  
+socksproxy.outproxy                    | Address of outproxy. requests outside I2P will go there  
 socksproxy.outproxyport                | Outproxy remote port  
 
 ### SAM interface
@@ -118,7 +129,7 @@ Option                                 | Description
 -------------------------------------- | --------------------------------------
 sam.address                            | The address to listen on (SAM bridge)
 sam.port                               | Port of SAM bridge. Usually 7656. SAM is off if not specified
-sam.enabled                            | If SAM is enabled. false by default 
+sam.enabled                            | If SAM is enabled. true by default 
 
 ### BOB interface
 
@@ -164,9 +175,11 @@ precomputation.elgamal                 | Use ElGamal precomputated tables. false
 
 Option                                 | Description
 -------------------------------------- | --------------------------------------
-reseed.verify                          | Request SU3 signature verification  
-reseed.file                            | Full path to SU3 file to reseed from  
+reseed.verify                          | Verify .su3 signature. fase by default 
 reseed.urls                            | Reseed URLs, separated by comma
+reseed.file                            | Path to local .su3 file or HTTPS URL to reseed from
+reseed.zipfile                         | Path to local .zip file to reseed from
+reseed.threshold                       | Minimum number of known routers before requesting reseed. 25 by default
 
 ### Addressbook options
 
@@ -180,7 +193,7 @@ addressbook.subscriptions              | AddressBook subscriptions URLs, separat
 Option                                 | Description
 -------------------------------------- | --------------------------------------
 limits.transittunnels                  | Override maximum number of transit tunnels. 2500 by default   
-limits.openfiles                       | Maximum size of corefile in Kb (0 - use system limit)  
+limits.openfiles                       | Limit number of open file descriptors (0 - use system limit)  
 limits.coresize                        | Maximum size of corefile in Kb (0 - use system limit)  
 
 ### Trust options
@@ -200,8 +213,14 @@ websockets.enabled                     | Enable websocket server. Disabled by de
 websockets.address                     | Address to bind websocket server on. 127.0.0.1 by default
 websockets.port                        | Port to bind websocket server on. 7666 by default
 
+### Exploratory tunnels
 
-
+Option                                 | Description
+-------------------------------------- | --------------------------------------
+exploratory.inbound.length             | Exploratory inbound tunnels length. 2 by default
+exploratory.inbound.quantity           | Exploratory inbound tunnels quantity. 3 by default
+exploratory.outbound.length            | Exploratory outbound tunnels length. 2 by default
+exploratory.outbound.quantity          | Exploratory outbound tunnels length. 3 by default
 
 Local addressbook
 -----------------
