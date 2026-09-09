@@ -5,11 +5,9 @@ site_author: PurpleI2P Team
 
 repo_url: https://github.com/PurpleI2P/i2pd_docs_en
 
-site_favicon: media/i2pd-logo.png
-
-pages:
+nav:
 - Home: index.md
-- User Guide: 
+- User Guide:
     - Installing: user-guide/install.md
     - Running: user-guide/run.md
     - Configuring: user-guide/configuration.md
@@ -19,25 +17,35 @@ pages:
 - How-To / Tutorials:
     - Anonymous websites: tutorials/http.md
     - Anonymous IRC chats: tutorials/irc.md
-    - Filesharing: tutorials/filesharing.md
-    - Using RetroShare with i2pd: tutorials/retroshare.md  
+    - Decentralized instant messenger (XMPP aka Jabber): tutorials/xmpp.md
+    - Monero over I2P: tutorials/Monero.md
+    - Filesharing: 
+        - Software: tutorials/Filesharing/Software.md
+        - qBittorrent: tutorials/Filesharing/qBittorrent.md
+    - Using RetroShare with i2pd: tutorials/retroshare.md
+    - Yggdrasil only router configuration: tutorials/yggdrasil-only-mode.md
+    - Encrypted LeaseSet2 Configuration: tutorials/blinded-addresse.md
+    - Glossary: tutorials/glossary.md
 - Developer Section:
-    - Building from source: 
+    - Building from source:
         - Requirements: devs/building/requirements.md
         - Unix: devs/building/unix.md
         - Windows: devs/building/windows.md
         - Android: devs/building/android.md
         - Cross-platform: devs/building/cross.md
         - iOS: devs/building/ios.md
-    - API: 
+        - GUI application: devs/building/qt-desktop-gui.md
+        - HaikuOS: devs/building/haikuos.md
+    - API:
         - Choosing API for your project: devs/api/index.md
         - SAM: devs/api/SAM.md
         - BOB: devs/api/BOB.md
-        - I2CP: devs/api/I2CP.md  
+        - I2CP: devs/api/I2CP.md
         - I2PControl: devs/api/I2PControl.md
         - libi2pd: devs/api/libi2pd.md
+    - i2pd-specific changes to I2P protocols: devs/i2pd-specifics.md
     - Hacking the code: devs/hacking.md
-- About: 
+- About:
     - Community: about/community.md
     - History: about/history.md
     - License: about/license.md
@@ -48,5 +56,5 @@ theme: readthedocs
 
 
 markdown_extensions:
-    - toc:
-        permalink: 
+  - toc:
+      permalink: true

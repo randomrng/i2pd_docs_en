@@ -76,13 +76,30 @@ You can install it through the MSYS2 and build with `USE_UPNP` key.
 Using Visual Studio
 -------------------
 
+### Installing dependencies through vcpkg
+
+Requirements:
+
+* [vcpkg](https://vcpkg.io/) (NOTE: Due to Microsoft's telemetry policies, it is strongly advised to opt out of data collection by referring to [this document](https://github.com/microsoft/vcpkg#telemetry).)
+* [Visual Studio Community Edition](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx) (tested with VS2022)
+
+This part assumes that you know how to use and integrate vcpkg into Visual Studio.
+Read [this](https://learn.microsoft.com/en-us/vcpkg/) if you are unsure.
+Navigate to the vcpkg directory, and run(change x64-windows to x86-windows for a 32bit build):
+
+    .\vcpkg install boost:x64-windows miniupnpc:x64-windows openssl:x64-windows
+
+You may now skip directly to the [build process](#creating-visual-studio-project).
+
+### Without vcpkg
+
 Requirements for building:
 
 * [CMake](https://cmake.org/) (tested with 3.1.3)
 * [Visual Studio Community Edition](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx) (tested with VS2013 Update 4)
 * [Boost](http://www.boost.org/) (tested with 1.59)
 * Optionally [MiniUPnP](http://miniupnp.free.fr) (tested with 1.9), we need only few client headers
-* OpenSSL (tested with 1.0.1p and 1.0.2e), if building from sources (recommended), you'll need as well
+* OpenSSL (tested with 3.0.0), if building from sources (recommended), you'll need as well
 	* [Netwide assembler](http://www.nasm.us/)
 	* Strawberry Perl or ActiveState Perl, do NOT try msys2 perl, it won't work
 
@@ -112,7 +129,7 @@ Download OpenSSL, e.g. with git
 
 	git clone https://github.com/openssl/openssl.git
 	cd openssl
-	git checkout OpenSSL_1_0_1p
+	git checkout openssl-3.0.0
 
 Now open Visual Studio command prompt and change directory to that with OpenSSL
 
@@ -149,6 +166,7 @@ Alternatively, if you feel adventurous, try that from the command line
 	cmake ..\build -G "Visual Studio 12 2013" -DWITH_UPNP=ON -DWITH_PCH=ON -DCMAKE_INSTALL_PREFIX:PATH=C:\dev\Debug_Win32_stage
 
 If necessary files are not found `WITH_UPNP` will stay off.
+vcpkg users may refer to [this](https://learn.microsoft.com/en-us/vcpkg/users/buildsystems/cmake-integration) for CMake flags.
 
 ### Building i2pd
 
